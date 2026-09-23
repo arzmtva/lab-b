@@ -1,0 +1,34 @@
+# Практическая работа — Вариант B
+
+# 1. Создание группы и пользователя
+sudo groupadd developers
+sudo useradd -m student2
+sudo usermod -aG developers student2
+
+# 2. Создание общего каталога
+sudo mkdir -p /srv/shared
+sudo chown root:developers /srv/shared
+sudo chmod 775 /srv/shared
+
+# 3. Проверка пользователя
+id student2
+groups
+
+# 4. Создание файла от имени student2
+su - student2
+touch /srv/shared/student2_file.txt
+ls -l /srv/shared/student2_file.txt
+exit
+
+# 5. Проверка удаления от имени основного пользователя
+rm /srv/shared/student2_file.txt
+
+# 6. Настройка ~/.bashrc
+alias ll='ls -la'
+alias c='clear'
+export MY_NAME="student"
+
+# 7. Проверка
+echo $MY_NAME
+ll
+c
