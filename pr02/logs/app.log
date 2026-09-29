@@ -1,0 +1,10 @@
+2026-09-29 10:00:01 ERROR auth Login failed
+2026-09-29 10:00:02 WARN auth Slow response
+2026-09-29 10:00:03 ERROR database Connection failed
+2026-09-29 10:00:04 ERROR auth Invalid password
+2026-09-29 10:00:05 WARN payment Payment delayed
+2026-09-29 10:00:06 ERROR database Query failed
+2026-09-29 10:00:07 ERROR payment Payment failed
+2026-09-29 10:00:08 ERROR auth User blocked
+2026-09-29 10:00:09 WARN database Slow query
+2026-09-29 10:00:10 ERROR payment Card rejected

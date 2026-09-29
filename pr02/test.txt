@@ -1,0 +1,2 @@
+Hello! This is a test file for Practical Work 2.
+We will use this file to check Python and system calls.
