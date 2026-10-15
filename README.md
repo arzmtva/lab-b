@@ -1,43 +1,31 @@
-# Practical Work 4 — Multithreading and Multiprocessing
+# Lab B
 
-## Objective
-Compare sequential execution, multithreading, and multiprocessing in Python.
+## Practical Work 6 — Synchronization
+**Variant B**
 
-## Tasks
-- Calculate the sum of one million numbers using three methods.
-- Download 20 URLs sequentially, using `ThreadPoolExecutor`, and using `ProcessPoolExecutor`.
-- Compare execution times using the median of three runs.
-- Check how threads and processes handle shared memory.
+### Objective
+To study synchronization using mutexes, semaphores, and condition variables.
 
-## Results
+### Tasks
+1. Producer-consumer using semaphores and a mutex.
+2. Producer-consumer using a mutex and condition variable.
+3. Barrier synchronization for four threads and three phases.
+4. Demonstration of unsafe use of if instead of while.
 
-### 1. Sum of Numbers
+### Configuration
+- Producers: 3
+- Consumers: 2
+- Buffer capacity: 5
+- Items processed: 1000
 
-| Method | Median Time (seconds) |
-|---|---:|
-| Sequential | 0.0050 |
-| 4 Threads | 0.0151 |
-| 4 Processes | 0.0816 |
+### Results
+- Semaphore implementation: PASS
+- Condition variable implementation: PASS
+- 1000 unique items consumed exactly once in both tests
+- No missing or duplicate items
+- Barrier test: PASS
+- Unsafe if demonstration: BUG DEMONSTRATED
 
-The sum was `500000500000` for all three methods.
-
-### 2. Downloading URLs
-
-| Method | Successfully Downloaded | Median Time (seconds) |
-|---|---:|---:|
-| Sequential | 15/20 | 13.3900 |
-| ThreadPoolExecutor | 15/20 | 5.3409 |
-| ProcessPoolExecutor | 15/20 | 5.3720 |
-
-### 3. Memory Test
-
-- **Thread:** The parent list contained `['thread']` after the thread modified it.
-- **Process:** The parent list remained `[]` after the child process modified its own copy.
-
-## Conclusion
-Sequential execution was fastest for summing numbers because the calculation was simple and the overhead of threads and processes outweighed their benefits. For downloading URLs, concurrent execution was faster. Threads are useful for I/O-bound tasks, while processes provide separate memory spaces and can help with CPU-bound work. Actual performance depends on the task and system.
-
-## Files
-- `practical4.py` — Python implementation.
-- `numbers.txt` — Input data containing one million numbers.Права каталога: drwxrwxr-x.
-
+### Run
+```bash
+python3 practical6.py
