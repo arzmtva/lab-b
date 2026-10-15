@@ -1,49 +1,43 @@
-# Практическая работа — Вариант B
+# Practical Work 4 — Multithreading and Multiprocessing
 
-## 1. Пользователь и группа
+## Objective
+Compare sequential execution, multithreading, and multiprocessing in Python.
 
-Был создан пользователь student2 и группа developers. Пользователь student2 был добавлен в группу developers.
+## Tasks
+- Calculate the sum of one million numbers using three methods.
+- Download 20 URLs sequentially, using `ThreadPoolExecutor`, and using `ProcessPoolExecutor`.
+- Compare execution times using the median of three runs.
+- Check how threads and processes handle shared memory.
 
-## 2. Каталог /srv/shared
+## Results
 
-Каталог /srv/shared имеет владельца root и группу developers.
+### 1. Sum of Numbers
 
-Права каталога: drwxrwxr-x.
+| Method | Median Time (seconds) |
+|---|---:|
+| Sequential | 0.0050 |
+| 4 Threads | 0.0151 |
+| 4 Processes | 0.0816 |
 
-Члены группы developers имеют права на чтение, запись и выполнение в каталоге, что позволяет им создавать файлы. Остальные пользователи имеют права чтения и выполнения.
+The sum was `500000500000` for all three methods.
 
-## 3. Создание и удаление файла
+### 2. Downloading URLs
 
-От имени пользователя student2 был создан файл student2_file.txt в каталоге /srv/shared.
+| Method | Successfully Downloaded | Median Time (seconds) |
+|---|---:|---:|
+| Sequential | 15/20 | 13.3900 |
+| ThreadPoolExecutor | 15/20 | 5.3409 |
+| ProcessPoolExecutor | 15/20 | 5.3720 |
 
-После этого от имени основного пользователя была выполнена попытка удалить файл без использования sudo.
+### 3. Memory Test
 
-Удаление файла определяется правами на родительский каталог. Поэтому пользователь, который не имеет права записи в /srv/shared, не может удалить файл из этого каталога.
+- **Thread:** The parent list contained `['thread']` after the thread modified it.
+- **Process:** The parent list remained `[]` after the child process modified its own copy.
 
-## 4. Чем su отличается от sudo
+## Conclusion
+Sequential execution was fastest for summing numbers because the calculation was simple and the overhead of threads and processes outweighed their benefits. For downloading URLs, concurrent execution was faster. Threads are useful for I/O-bound tasks, while processes provide separate memory spaces and can help with CPU-bound work. Actual performance depends on the task and system.
 
-Команда su позволяет переключиться на другого пользователя и работать от его имени.
+## Files
+- `practical4.py` — Python implementation.
+- `numbers.txt` — Input data containing one million numbers.Права каталога: drwxrwxr-x.
 
-Команда sudo позволяет выполнить отдельную команду с правами другого пользователя, обычно root, если текущему пользователю разрешено использовать sudo.
-
-Таким образом, su используется для переключения пользователя, а sudo — для выполнения отдельных команд с повышенными правами.
-
-## 5. Почему в Ubuntu по умолчанию заблокирован вход под root
-
-В Ubuntu прямой вход под root по умолчанию не используется. Для административных действий применяется sudo.
-
-Это позволяет выполнять команды с правами администратора только тогда, когда это необходимо, вместо постоянной работы от имени root.
-
-## 6. Настройка ~/.bashrc
-
-В файл ~/.bashrc были добавлены два alias:
-
-alias ll='ls -la'
-
-alias c='clear'
-
-Также была добавлена переменная окружения:
-
-export MY_NAME="student"
-
-Работа alias и переменной была проверена после запуска новой сессии Ubuntu.
